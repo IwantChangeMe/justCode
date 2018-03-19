@@ -4,20 +4,40 @@ package justcode.com.common;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import justcode.com.common.okhttp.MycookieJar;
+import justcode.com.common.okhttp.SSLSocketClient;
+import okhttp3.OkHttpClient;
 
 public class BaseApplication extends Application {
+
+   public static OkHttpClient client;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        //配置bugly
         initBugly();
-        Log.d("Application","BaseApplication");
+        //配置okhttp
+        initOKHTTP();
+    }
+
+    private void initOKHTTP() {
+        client = new OkHttpClient().newBuilder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//配置  这句话，忽略https证书验证
+                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//配置  这句话，忽略host验证
+                .cookieJar(new MycookieJar())
+                .build();
     }
 
     private void initBugly() {
