@@ -4,6 +4,7 @@ package justcode.com.common;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -16,6 +17,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initBugly();
+        Log.d("Application","BaseApplication");
     }
 
     private void initBugly() {
