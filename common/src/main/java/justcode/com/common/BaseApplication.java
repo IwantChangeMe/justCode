@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 
 public class BaseApplication extends Application {
 
-   public static OkHttpClient client;
+    public static OkHttpClient.Builder builder;
 
     @Override
     public void onCreate() {
@@ -30,14 +30,14 @@ public class BaseApplication extends Application {
     }
 
     private void initOKHTTP() {
-        client = new OkHttpClient().newBuilder()
-                .connectTimeout(10, TimeUnit.SECONDS)
+        builder = new OkHttpClient().newBuilder();
+        builder.connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//配置  这句话，忽略https证书验证
                 .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//配置  这句话，忽略host验证
-                .cookieJar(new MycookieJar())
-                .build();
+                .cookieJar(new MycookieJar());
+
     }
 
     private void initBugly() {

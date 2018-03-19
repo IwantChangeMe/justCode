@@ -10,6 +10,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        signingConfigs {
+            config {
+                keyAlias 'key'
+                keyPassword 'hxl19920401'
+                storeFile file('justcode.jks')
+                storePassword 'hxl19920401'
+            }
+        }
 
     }
     buildTypes {
