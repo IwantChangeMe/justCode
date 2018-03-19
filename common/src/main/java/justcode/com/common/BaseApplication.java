@@ -31,9 +31,9 @@ public class BaseApplication extends Application {
 
     private void initOKHTTP() {
         client = new OkHttpClient().newBuilder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//配置  这句话，忽略https证书验证
                 .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//配置  这句话，忽略host验证
                 .cookieJar(new MycookieJar())
