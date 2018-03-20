@@ -1,22 +1,25 @@
 package justcode.com.hxlapp.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 
 import justcode.com.hxlapp.R;
+import justcode.com.hxlapp.base.BaseUIActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseUIActivity {
 
+
+    @SuppressLint("MissingSuperCall")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState, R.layout.activity_main);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
+
+
 }

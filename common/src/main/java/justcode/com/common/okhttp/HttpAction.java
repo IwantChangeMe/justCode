@@ -46,7 +46,7 @@ public abstract class HttpAction<T> extends InterceptorHttpAction<T, String> {
     private int writeTimeout = 0;
     private boolean isPost = true;
 
-    private static String host; // 默认父级域名，比如http://www.baidu.com/
+    private static String host = "http://carshare-sirui.mysirui.com"; // 默认父级域名，比如http://www.baidu.com/
     private String rPath;//子级域名，如 books 结合父级域名就是http://www.baidu.com/books  后面接参数
 
     public HttpAction(String rPath) {
@@ -181,13 +181,14 @@ public abstract class HttpAction<T> extends InterceptorHttpAction<T, String> {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                LogHttp.log("响应:\n" + url.concat("\t").concat("onResponse").concat("\n").concat(response.body().string()));
+                String json = response.body().string();
+                LogHttp.log("响应:\n" + url.concat("\t").concat("onResponse").concat("\n").concat(json));
                 //请求结束后的回调(Gson解析前)
                 runOnComplet();
                 try {
                     //Gson解析响应
                     HttpResult<T> httpResult = new HttpResult<>();
-                    httpResult.setEntity(decodeAndProcessModel(response.body().toString(), httpResult));
+                    httpResult.setEntity(decodeAndProcessModel(json, httpResult));
                     runOnResult(httpResult);
                 } catch (Exception e) {
                     e.printStackTrace();

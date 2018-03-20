@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_rootlayout"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="#33B5E5">
+
+    <RelativeLayout
+        android:id="@+id/image_left"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/iv_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/back"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:marqueeRepeatLimit="-1"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_right"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_actionbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="-1"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="相册"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:scaleType="center"/>
+    </LinearLayout>
+</RelativeLayout>
