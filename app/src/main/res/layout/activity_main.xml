@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dddddd"
-    tools:context="justcode.com.hxlapp.ui.MainActivity">
+    tools:context="justcode.com.hxlapp.ui.home.MainActivity">
 
     <FrameLayout
         android:id="@+id/fl_root"
@@ -13,6 +13,12 @@
         android:layout_height="wrap_content">
     </FrameLayout>
 
+
+    <View
+        android:layout_above="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:background="@drawable/yinying_shape"
+        android:layout_height="1.5dp"/>
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_alignParentBottom="true"
