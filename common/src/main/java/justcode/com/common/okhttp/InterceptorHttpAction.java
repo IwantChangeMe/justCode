@@ -20,7 +20,7 @@ import justcode.com.common.okhttp.interceptor.InterceptorUtil;
  */
 public abstract class InterceptorHttpAction<T, S> {
 
-    protected Handler mHandler = new Handler();
+    protected static final Handler mHandler = new Handler();
 
     private List<Runnable> startAction = null;              //请求网络开始前调用本任务列表
     private List<Runnable> completAction = null;            //请求网络结束后调用本任务列表(json解析前)
