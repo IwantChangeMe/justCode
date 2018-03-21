@@ -2,10 +2,8 @@ package justcode.com.hxlapp.ui.home.record;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -30,14 +27,13 @@ import justcode.com.hxlapp.bussiness.record.RecordEntity;
 public class RecordFragment extends Fragment {
     static final String TAG = "RecordFragment";
 
-    List<RecordEntity> list;
+    List<RecordEntity> list = new ArrayList<>();
     RecyclerView recyclerView;
     NorAdapter norAdapter;
 
     public RecordFragment() {
-        list = new ArrayList<>();
         //获取需要展示的数据
-        list = getRecordEntity();
+          list = getRecordEntity();
     }
 
     public void updateRecord(List<RecordEntity> list0) {
@@ -72,13 +68,14 @@ public class RecordFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         //添加Android自带的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         //添加数据
         norAdapter = new NorAdapter(list, getContext());
         //加入adapter
         recyclerView.setAdapter(norAdapter);
 
-        RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.pull_to_refresh);
+        RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableLoadmoreWhenContentNotFull(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -87,13 +84,13 @@ public class RecordFragment extends Fragment {
                 updateRecord(getRecordEntity());
             }
         });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                updateRecord(getRecordEntity());
-            }
-        });
+      refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+          @Override
+          public void onLoadmore(RefreshLayout refreshlayout) {
+              refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+              updateRecord(getRecordEntity());
+          }
+      });
 
     }
 
@@ -131,10 +128,12 @@ public class RecordFragment extends Fragment {
 
 
     public List<RecordEntity> getRecordEntity() {
+        int m = k;
         for (int i = k; i < k + 10; i++) {
             list.add(new RecordEntity("第" + i + "套", "内容" + i, "2018年1月" + i + "日", null));
-            k++;
+            m++;
         }
+        k = m;
         return list;
     }
 }

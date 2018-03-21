@@ -32,7 +32,7 @@ public class NorAdapter extends RecyclerView.Adapter<NorAdapter.MyViewHolder> {
     //加入布局的地方,返回holder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item_record, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item_record, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
