@@ -3,15 +3,20 @@ package justcode.com.hxlapp.ui.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.widget.RadioGroup;
 
 import justcode.com.hxlapp.R;
 import justcode.com.hxlapp.base.BaseUIActivity;
+import justcode.com.hxlapp.ui.home.record.RecordFragment;
 
-public class MainActivity extends BaseUIActivity {
+public class MainActivity extends BaseUIActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
     AccountingFragment accountingFragment;
     RecordFragment recordFragment;
@@ -34,6 +39,10 @@ public class MainActivity extends BaseUIActivity {
             recordFragment = new RecordFragment();
         replace(recordFragment);
         initListener();
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
     private void replace(Fragment fragment) {
         ft = fm.beginTransaction();
@@ -73,6 +82,27 @@ public class MainActivity extends BaseUIActivity {
     protected void onResume() {
         super.onResume();
     }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
 }

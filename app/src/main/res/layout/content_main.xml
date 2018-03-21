@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#dddddd"
+tools:context="justcode.com.hxlapp.ui.home.MainActivity">
+
+<FrameLayout
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+</FrameLayout>
+
+
+<View
+    android:layout_above="@+id/rg_main"
+    android:layout_width="match_parent"
+    android:background="@drawable/yinying_shape"
+    android:layout_height="1.5dp"/>
+<RadioGroup
+    android:id="@+id/rg_main"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/radio1"
+        android:text="记事"
+        android:textSize="12dp"
+        android:drawablePadding="2dp"
+        android:textColor="@drawable/text_selector"
+        android:drawableTop="@drawable/down_rb1_selector"
+        android:button="@null"
+        android:width="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioButton
+        android:id="@+id/radio2"
+        android:text="记账"
+        android:textSize="12dp"
+        android:drawablePadding="2dp"
+        android:textColor="@drawable/text_selector"
+        android:button="@null"
+        android:drawableTop="@drawable/down_rb2_selector"
+        android:width="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioButton
+        android:id="@+id/radio3"
+        android:text="工具"
+        android:textSize="12dp"
+        android:drawablePadding="2dp"
+        android:textColor="@drawable/text_selector"
+        android:drawableTop="@drawable/down_rb3_selector"
+        android:button="@null"
+        android:width="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RadioGroup>
+
+<android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/fab_margin"
+    app:srcCompat="@android:drawable/ic_dialog_email" />
+</RelativeLayout>

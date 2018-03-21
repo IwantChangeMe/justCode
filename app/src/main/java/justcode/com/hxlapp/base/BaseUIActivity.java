@@ -4,7 +4,6 @@ package justcode.com.hxlapp.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -33,8 +32,6 @@ public class BaseUIActivity extends BaseActivity {
         View decorView = getWindow().getDecorView();
         int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(option);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         //设置根布局
         setContentView(R.layout.activity_root);
         //设置标题栏
