@@ -3,6 +3,7 @@ package justcode.com.common;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import com.tencent.bugly.crashreport.CrashReport;
@@ -12,6 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import justcode.com.common.db.DaoMaster;
+import justcode.com.common.db.DaoSession;
 import justcode.com.common.okhttp.MycookieJar;
 import justcode.com.common.okhttp.SSLSocketClient;
 import okhttp3.OkHttpClient;
@@ -19,6 +22,7 @@ import okhttp3.OkHttpClient;
 public class BaseApplication extends Application {
 
     public static OkHttpClient.Builder builder;
+    DaoSession daoSession;
 
     @Override
     public void onCreate() {
@@ -27,6 +31,19 @@ public class BaseApplication extends Application {
         initBugly();
         //配置okhttp
         initOKHTTP();
+        //初始化greenDao
+        initGreenDao();
+    }
+
+    private void initGreenDao() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "hxl_record.db");
+        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(writableDatabase);
+        daoSession = daoMaster.newSession();
+    }
+
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 
     private void initOKHTTP() {

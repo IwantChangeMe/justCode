@@ -12,8 +12,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import justcode.com.common.db.entity.record.RecordEntity;
 import justcode.com.hxlapp.R;
-import justcode.com.hxlapp.bussiness.record.RecordEntity;
+
 
 public class NorAdapter extends RecyclerView.Adapter<NorAdapter.MyViewHolder> {
     List<RecordEntity> list;

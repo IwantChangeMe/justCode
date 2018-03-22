@@ -18,8 +18,11 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import justcode.com.common.db.entity.record.RecordEntity;
 import justcode.com.hxlapp.R;
-import justcode.com.hxlapp.bussiness.record.RecordEntity;
+import justcode.com.hxlapp.bussiness.record.RecordBiz;
+import justcode.com.hxlapp.ui.home.MainActivity;
+
 
 /**
  * 记事fragment
@@ -30,10 +33,11 @@ public class RecordFragment extends Fragment {
     List<RecordEntity> list = new ArrayList<>();
     RecyclerView recyclerView;
     NorAdapter norAdapter;
-
+    RecordBiz recordBiz;
     public RecordFragment() {
         //获取需要展示的数据
           list = getRecordEntity();
+          recordBiz = new RecordBiz((MainActivity) getActivity());
     }
 
     public void updateRecord(List<RecordEntity> list0) {
@@ -128,12 +132,14 @@ public class RecordFragment extends Fragment {
 
 
     public List<RecordEntity> getRecordEntity() {
+
         int m = k;
         for (int i = k; i < k + 10; i++) {
-            list.add(new RecordEntity("第" + i + "套", "内容" + i, "2018年1月" + i + "日", null));
+            list.add(new RecordEntity("第" + i + "套", "内容" + i, "2018年1月" + i + "日", 0));
             m++;
         }
         k = m;
+//        return  recordBiz.getRecordEntityAll();
         return list;
     }
 }

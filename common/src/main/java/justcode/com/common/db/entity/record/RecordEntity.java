@@ -1,20 +1,24 @@
-package justcode.com.hxlapp.bussiness.record;
+package justcode.com.common.db.entity.record;
 
 
-import java.util.Date;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 日记实体类
  */
+@Entity
 public class RecordEntity {
-
+    @Id
+    private long id;
     private String title;
     private String connent;
     private String timeStr;
-    private Date date;
+    private long date;
     private String impPath;
 
-    public RecordEntity(String title, String connent, String timeStr, Date date) {
+    public RecordEntity(String title, String connent, String timeStr, long date) {
         this.title = title;
         this.connent = connent;
         this.timeStr = timeStr;
@@ -22,6 +26,26 @@ public class RecordEntity {
     }
 
     public RecordEntity() {
+    }
+
+    @Generated(hash = 1484530347)
+    public RecordEntity(long id, String title, String connent, String timeStr,
+            long date, String impPath) {
+        this.id = id;
+        this.title = title;
+        this.connent = connent;
+        this.timeStr = timeStr;
+        this.date = date;
+        this.impPath = impPath;
+    }
+    
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -48,11 +72,11 @@ public class RecordEntity {
         this.timeStr = timeStr;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
