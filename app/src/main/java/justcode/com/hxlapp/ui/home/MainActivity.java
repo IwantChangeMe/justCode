@@ -3,6 +3,7 @@ package justcode.com.hxlapp.ui.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,13 +11,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import justcode.com.hxlapp.R;
 import justcode.com.hxlapp.base.BaseUIActivity;
 import justcode.com.hxlapp.ui.home.record.RecordFragment;
+import justcode.com.hxlapp.ui.ui_utils.animation_util.AnimationUtil;
 
-public class MainActivity extends BaseUIActivity  implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends BaseUIActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     AccountingFragment accountingFragment;
     RecordFragment recordFragment;
@@ -24,8 +27,11 @@ public class MainActivity extends BaseUIActivity  implements NavigationView.OnNa
 
     RadioGroup radioGroup;
 
+    FloatingActionButton fab;
+
     FragmentManager fm;
     FragmentTransaction ft;
+
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,10 +39,12 @@ public class MainActivity extends BaseUIActivity  implements NavigationView.OnNa
 
         radioGroup = (RadioGroup) findViewById(R.id.rg_main);
 
+        fab = findViewById(R.id.fab);
+
         // 初始化fragmen管理器
         fm = getSupportFragmentManager();
         if (recordFragment == null)
-            recordFragment = new RecordFragment();
+            recordFragment = new RecordFragment(this);
         replace(recordFragment);
         initListener();
 
@@ -44,11 +52,13 @@ public class MainActivity extends BaseUIActivity  implements NavigationView.OnNa
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
     private void replace(Fragment fragment) {
         ft = fm.beginTransaction();
         ft.replace(R.id.fl_root, fragment);
         ft.commit();
     }
+
     private void initListener() {
         radioGroup.check(R.id.radio1);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -56,24 +66,55 @@ public class MainActivity extends BaseUIActivity  implements NavigationView.OnNa
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.radio1:
+                        showFloatButton();
                         if (recordFragment == null)
-                            recordFragment = new RecordFragment();
+                            recordFragment = new RecordFragment(MainActivity.this);
                         replace(recordFragment);
                         break;
                     case R.id.radio2:
+                        showFloatButton();
                         if (accountingFragment == null)
                             accountingFragment = new AccountingFragment();
                         replace(accountingFragment);
                         break;
                     case R.id.radio3:
+                        hideFloatButton();
                         if (toolFragment == null)
-                            toolFragment= new ToolFragment();
+                            toolFragment = new ToolFragment();
                         replace(toolFragment);
                         break;
 
                 }
             }
         });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void hideFloatButton() {
+
+        if (fab.getVisibility() != View.INVISIBLE) {
+            fab.setVisibility(View.INVISIBLE);
+            AnimationUtil.newAnimation(this, fab)
+                    .Scale(AnimationUtil.ScaleSmall)
+                    .Alpha(AnimationUtil.AlphaHide)
+                    .play();
+        }
+    }
+
+    private void showFloatButton() {
+        if (fab.getVisibility() != View.VISIBLE) {
+            fab.setVisibility(View.VISIBLE);
+            AnimationUtil.newAnimation(this, fab)
+                    .Scale(AnimationUtil.ScaleBig)
+                    .Alpha(AnimationUtil.AlphaShow)
+                    .play();
+        }
 
 
     }
@@ -82,12 +123,12 @@ public class MainActivity extends BaseUIActivity  implements NavigationView.OnNa
     protected void onResume() {
         super.onResume();
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

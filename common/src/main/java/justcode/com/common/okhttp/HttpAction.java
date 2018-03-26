@@ -149,10 +149,10 @@ public abstract class HttpAction<T> extends InterceptorHttpAction<T, String> {
 
         //post请求和get请求
         if (isPost) {
-            request = PostRequest.Build(url, map);
             if (fileMap != null && fileMap.size() > 0) {
                 tempMap.putAll(fileMap);
             }
+            request = PostRequest.Build(url, tempMap);
         } else {
             request = GetRequest.build(url, map);
         }

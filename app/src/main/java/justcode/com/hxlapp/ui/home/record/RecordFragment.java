@@ -27,6 +27,7 @@ import justcode.com.hxlapp.ui.home.MainActivity;
 /**
  * 记事fragment
  */
+
 public class RecordFragment extends Fragment {
     static final String TAG = "RecordFragment";
 
@@ -34,10 +35,10 @@ public class RecordFragment extends Fragment {
     RecyclerView recyclerView;
     NorAdapter norAdapter;
     RecordBiz recordBiz;
-    public RecordFragment() {
+    public RecordFragment(MainActivity activity) {
         //获取需要展示的数据
           list = getRecordEntity();
-          recordBiz = new RecordBiz((MainActivity) getActivity());
+          recordBiz = new RecordBiz(activity);
     }
 
     public void updateRecord(List<RecordEntity> list0) {

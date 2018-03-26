@@ -8,8 +8,8 @@ import java.util.List;
 
 import justcode.com.common.BaseApplication;
 import justcode.com.common.db.DaoSession;
+import justcode.com.common.db.RecordEntityDao;
 import justcode.com.common.db.entity.record.RecordEntity;
-import justcode.com.common.db.entity.record.RecordEntityDao;
 import justcode.com.hxlapp.ui.home.MainActivity;
 
 public class RecordBiz {
