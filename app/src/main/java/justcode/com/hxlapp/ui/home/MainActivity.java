@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import justcode.com.hxlapp.R;
 import justcode.com.hxlapp.base.BaseUIActivity;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
     FragmentManager fm;
     FragmentTransaction ft;
     int currentFragment;
+    TextView title;
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
 
         fab = findViewById(R.id.fab);
 
+        title = findViewById(R.id.title);
         // 初始化fragmen管理器
         fm = getSupportFragmentManager();
         if (recordFragment == null)
@@ -52,8 +55,8 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
         initListener();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void replace(Fragment fragment) {
@@ -70,6 +73,7 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
                 switch (i) {
                     case R.id.radio1:
                         currentFragment = 0;
+                        title.setText("记事");
                         showFloatButton();
                         if (recordFragment == null)
                             recordFragment = new RecordFragment(MainActivity.this);
@@ -77,12 +81,14 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
                         break;
                     case R.id.radio2:
                         currentFragment = 1;
+                        title.setText("计划");
                         showFloatButton();
                         if (accountingFragment == null)
                             accountingFragment = new AccountingFragment();
                         replace(accountingFragment);
                         break;
                     case R.id.radio3:
+                        title.setText("工具");
                         currentFragment = 2;
                         hideFloatButton();
                         if (toolFragment == null)

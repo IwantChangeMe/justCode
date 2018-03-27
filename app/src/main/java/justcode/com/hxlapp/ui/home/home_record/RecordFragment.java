@@ -1,6 +1,7 @@
 package justcode.com.hxlapp.ui.home.home_record;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -28,17 +30,19 @@ import justcode.com.hxlapp.ui.home.MainActivity;
  * 记事fragment
  */
 
+@SuppressLint("ValidFragment")
 public class RecordFragment extends Fragment {
     static final String TAG = "RecordFragment";
-
+    MainActivity activity;
     List<RecordEntity> list = new ArrayList<>();
     RecyclerView recyclerView;
     NorAdapter norAdapter;
     RecordBiz recordBiz;
+
+    @SuppressLint("ValidFragment")
     public RecordFragment(MainActivity activity) {
-        //获取需要展示的数据
-          list = getRecordEntity();
-          recordBiz = new RecordBiz(activity);
+        this.activity = activity;
+        recordBiz = new RecordBiz(activity);
     }
 
     public void updateRecord(List<RecordEntity> list0) {
@@ -80,67 +84,70 @@ public class RecordFragment extends Fragment {
         recyclerView.setAdapter(norAdapter);
 
         RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
-        refreshLayout.setEnableLoadmoreWhenContentNotFull(true);
+        refreshLayout.setEnableLoadmoreWhenContentNotFull(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
                 k = 0;
-                updateRecord(getRecordEntity());
+                updateRecord(refushRecordEntity());
             }
         });
-      refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-          @Override
-          public void onLoadmore(RefreshLayout refreshlayout) {
-              refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示加载失败
-              updateRecord(getRecordEntity());
-          }
-      });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+                if (list.size() < 20) {
+                    Toast.makeText(activity, "没有更多数据了", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                updateRecord(loadMoreRecordEntity());
+            }
+        });
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        k = 0;
+        updateRecord(refushRecordEntity());
         Log.d(TAG, "onResume");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged:" + hidden);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        Log.d(TAG, "isVisibleToUser:" + isVisibleToUser);
     }
 
     int k;
 
-
-    public List<RecordEntity> getRecordEntity() {
-
-        int m = k;
-        for (int i = k; i < k + 10; i++) {
-            list.add(new RecordEntity("第" + i + "套", "内容" + i, "2018年1月" + i + "日", 0));
-            m++;
+    /**
+     * 刷新数据
+     *
+     * @return
+     */
+    public List<RecordEntity> refushRecordEntity() {
+        List<RecordEntity> recordEntityAll = recordBiz.getRecordEntityDesc();
+        if (recordEntityAll != null) {
+            if (recordEntityAll.size() > 20) {
+                list = recordEntityAll.subList(0, 20);
+                k = 20;
+            } else {
+                list = recordEntityAll;
+                k = list.size();
+            }
         }
-        k = m;
-//        return  recordBiz.getRecordEntityAll();
         return list;
     }
+
+    /**
+     * 加载更多数据
+     */
+    public List<RecordEntity> loadMoreRecordEntity() {
+        List<RecordEntity> recordEntityAll = recordBiz.getRecordEntityDesc();
+        if (recordEntityAll != null) {
+            if (recordEntityAll.size() > 20) {
+                list.addAll(recordEntityAll.subList(k, k + 20));
+                k = k + 20;
+            }
+        }
+        return list;
+    }
+
 }

@@ -8,11 +8,11 @@
     </corners>
     <stroke
         android:width="2dp"
-        android:color="#999999">
+        android:color="@color/textcolor">
     </stroke>
-    <!--<solid-->
-        <!--android:color="#fefefe">-->
-    <!--</solid>-->
+    <solid
+        android:color="@color/itembackground">
+    </solid>
     <padding
         android:left="2dp"
         android:top="2dp"

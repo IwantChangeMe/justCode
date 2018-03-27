@@ -1,6 +1,7 @@
 package justcode.com.hxlapp.ui.home.home_record;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import justcode.com.common.db.entity.record.RecordEntity;
 import justcode.com.hxlapp.R;
+import justcode.com.hxlapp.ui.record.RecordActivity;
+import justcode.com.hxlapp.ui.ui_utils.IntentUtil.ActivityJumpUtil;
 
 
 public class NorAdapter extends RecyclerView.Adapter<NorAdapter.MyViewHolder> {
@@ -53,7 +55,8 @@ public class NorAdapter extends RecyclerView.Adapter<NorAdapter.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "点击了" + position, Toast.LENGTH_LONG).show();
+                RecordEntity recordEntity = list.get(position);
+                ActivityJumpUtil.jump2record((Activity) context, RecordActivity.class, recordEntity);
             }
         });
 

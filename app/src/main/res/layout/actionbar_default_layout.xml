@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_rootlayout"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@color/bgtitle">
+    android:layout_height="60dp">
 
     <RelativeLayout
         android:id="@+id/image_left"
@@ -29,7 +28,7 @@
         android:gravity="center"
         android:marqueeRepeatLimit="-1"
         android:maxLines="1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textcolor"
         android:textSize="18sp"/>
 
     <LinearLayout

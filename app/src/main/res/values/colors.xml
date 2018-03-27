@@ -4,5 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bg">#dddddd</color>
-    <color name="bgtitle">#777777</color>
+    <color name="bgtitle">#dddddd</color>
+
+    <!--自己的配色方案-->
+    <color name="background">#24a560</color>
+    <color name="textcolor">#005e37</color>
+    <color name="buttoncolor">#4cd964</color>
+    <color name="itembackground">#f7f7f7</color>
+
+
 </resources>

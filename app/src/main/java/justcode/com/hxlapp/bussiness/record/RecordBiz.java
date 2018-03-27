@@ -1,6 +1,7 @@
 package justcode.com.hxlapp.bussiness.record;
 
 
+import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -10,14 +11,13 @@ import justcode.com.common.BaseApplication;
 import justcode.com.common.db.DaoSession;
 import justcode.com.common.db.RecordEntityDao;
 import justcode.com.common.db.entity.record.RecordEntity;
-import justcode.com.hxlapp.ui.home.MainActivity;
+import justcode.com.hxlapp.base.BaseUIActivity;
 
 public class RecordBiz {
-    MainActivity activity;
+
     RecordEntityDao recordEntityDao;
 
-    public RecordBiz(MainActivity activity) {
-        this.activity = activity;
+    public RecordBiz(BaseUIActivity activity) {
         BaseApplication application = (BaseApplication) activity.getApplication();
         DaoSession daoSession = application.getDaoSession();
         recordEntityDao = daoSession.getRecordEntityDao();
@@ -84,5 +84,13 @@ public class RecordBiz {
      */
     public void delRecordEntity(RecordEntity entity) {
         recordEntityDao.delete(entity);
+    }
+
+    /**
+     * 按照时间降序排列，获取所以数据
+     */
+    public  List<RecordEntity>  getRecordEntityDesc(){
+        QueryBuilder<RecordEntity> recordEntityQueryBuilder = recordEntityDao.queryBuilder();
+        return recordEntityQueryBuilder.orderDesc(new Property[]{RecordEntityDao.Properties.Date}).build().list();
     }
 }

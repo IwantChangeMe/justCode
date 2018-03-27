@@ -1,12 +1,14 @@
 package justcode.com.hxlapp.base;
 
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,43 +28,53 @@ public class BaseUIActivity extends BaseActivity {
 
     private View rootView;
     private ImageView ivBack;
+
     protected void onCreate(@Nullable Bundle savedInstanceState, int layoutId) {
         super.onCreate(savedInstanceState);
-        //隐藏自带的actionbar
-        View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(option);
         //设置根布局
         setContentView(R.layout.activity_root);
         //设置标题栏
         llRoot = (LinearLayout) findViewById(R.id.ll_root);
+        int statusBarHeight = getStatusBarHeight();
+        Log.d("statusBarHeight", statusBarHeight + "");
+        llRoot.setPadding(0, statusBarHeight, 0, 0);
         addActionBar(setMyActionBar());
         //设置内容布局
         View inflate = View.inflate(this, layoutId, null);
         addContentView(inflate);
+        chenjinshi();
+    }
 
+    private int getStatusBarHeight() {
+        int statusBarHeight1 = 0;
+        //获取status_bar_height资源的ID
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight1 = getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight1;
+    }
+
+    private void chenjinshi() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-    }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus && Build.VERSION.SDK_INT >= 19) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
     }
 
 

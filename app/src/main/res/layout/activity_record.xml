@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/background"
     tools:context="justcode.com.hxlapp.ui.record.RecordActivity">
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,23 +19,30 @@
                 android:id="@+id/tv_record_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textcolor"
                 android:text="2018年1月1日"
                 android:textSize="14dp" />
 
             <EditText
+                android:id="@+id/et_record_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_record_title"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/textcolor"
                 android:gravity="center"
                 android:hint="请输入标题"
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_record_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_record_title"
+                android:textColor="@color/textcolor"
                 android:hint="请输入内容"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"

@@ -24,12 +24,11 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
         public final static Property Connent = new Property(2, String.class, "connent", false, "CONNENT");
         public final static Property TimeStr = new Property(3, String.class, "timeStr", false, "TIME_STR");
         public final static Property Date = new Property(4, long.class, "date", false, "DATE");
-        public final static Property ImpPath = new Property(5, String.class, "impPath", false, "IMP_PATH");
     }
 
 
@@ -45,12 +44,11 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"RECORD_ENTITY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"TITLE\" TEXT," + // 1: title
                 "\"CONNENT\" TEXT," + // 2: connent
                 "\"TIME_STR\" TEXT," + // 3: timeStr
-                "\"DATE\" INTEGER NOT NULL ," + // 4: date
-                "\"IMP_PATH\" TEXT);"); // 5: impPath
+                "\"DATE\" INTEGER NOT NULL );"); // 4: date
     }
 
     /** Drops the underlying database table. */
@@ -62,7 +60,11 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, RecordEntity entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String title = entity.getTitle();
         if (title != null) {
@@ -79,17 +81,16 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
             stmt.bindString(4, timeStr);
         }
         stmt.bindLong(5, entity.getDate());
- 
-        String impPath = entity.getImpPath();
-        if (impPath != null) {
-            stmt.bindString(6, impPath);
-        }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, RecordEntity entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String title = entity.getTitle();
         if (title != null) {
@@ -106,39 +107,32 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
             stmt.bindString(4, timeStr);
         }
         stmt.bindLong(5, entity.getDate());
- 
-        String impPath = entity.getImpPath();
-        if (impPath != null) {
-            stmt.bindString(6, impPath);
-        }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public RecordEntity readEntity(Cursor cursor, int offset) {
         RecordEntity entity = new RecordEntity( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // title
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // connent
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // timeStr
-            cursor.getLong(offset + 4), // date
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // impPath
+            cursor.getLong(offset + 4) // date
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, RecordEntity entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setTitle(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setConnent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTimeStr(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setDate(cursor.getLong(offset + 4));
-        entity.setImpPath(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override
@@ -158,7 +152,7 @@ public class RecordEntityDao extends AbstractDao<RecordEntity, Long> {
 
     @Override
     public boolean hasKey(RecordEntity entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

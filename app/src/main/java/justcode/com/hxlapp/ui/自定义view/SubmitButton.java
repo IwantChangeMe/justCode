@@ -89,8 +89,8 @@ public class SubmitButton extends View {
         if (typedArray.getString(R.styleable.SubmitButton_buttonText) != null) {
             buttonText = typedArray.getString(R.styleable.SubmitButton_buttonText);
         }
-        buttonColor = typedArray.getColor(R.styleable.SubmitButton_buttonColor, Color.parseColor("#19CC95"));
-        succeedColor = typedArray.getColor(R.styleable.SubmitButton_succeedColor, Color.parseColor("#19CC95"));
+        buttonColor = typedArray.getColor(R.styleable.SubmitButton_buttonColor, Color.parseColor("#4cd964"));
+        succeedColor = typedArray.getColor(R.styleable.SubmitButton_succeedColor, Color.parseColor("#4cd964"));
         failedColor = typedArray.getColor(R.styleable.SubmitButton_failedColor, Color.parseColor("#FC8E34"));
         textSize = (int) typedArray.getDimension(R.styleable.SubmitButton_buttonTextSize, sp2px(15));
         progressStyle = typedArray.getInt(R.styleable.SubmitButton_progressStyle, STYLE_LOADING);
