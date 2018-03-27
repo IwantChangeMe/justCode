@@ -1,4 +1,4 @@
-package justcode.com.hxlapp.ui.home.record;
+package justcode.com.hxlapp.ui.home.home_record;
 
 
 import android.content.Context;

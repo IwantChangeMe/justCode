@@ -16,7 +16,9 @@ import android.widget.RadioGroup;
 
 import justcode.com.hxlapp.R;
 import justcode.com.hxlapp.base.BaseUIActivity;
-import justcode.com.hxlapp.ui.home.record.RecordFragment;
+import justcode.com.hxlapp.ui.home.home_record.RecordFragment;
+import justcode.com.hxlapp.ui.record.RecordActivity;
+import justcode.com.hxlapp.ui.ui_utils.IntentUtil.ActivityJumpUtil;
 import justcode.com.hxlapp.ui.ui_utils.animation_util.AnimationUtil;
 
 public class MainActivity extends BaseUIActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +33,7 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
 
     FragmentManager fm;
     FragmentTransaction ft;
+    int currentFragment;
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -66,18 +69,21 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.radio1:
+                        currentFragment = 0;
                         showFloatButton();
                         if (recordFragment == null)
                             recordFragment = new RecordFragment(MainActivity.this);
                         replace(recordFragment);
                         break;
                     case R.id.radio2:
+                        currentFragment = 1;
                         showFloatButton();
                         if (accountingFragment == null)
                             accountingFragment = new AccountingFragment();
                         replace(accountingFragment);
                         break;
                     case R.id.radio3:
+                        currentFragment = 2;
                         hideFloatButton();
                         if (toolFragment == null)
                             toolFragment = new ToolFragment();
@@ -91,7 +97,15 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                switch (currentFragment){
+                    case 0:
+                        ActivityJumpUtil.jump(MainActivity.this, RecordActivity.class);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
             }
         });
     }

@@ -60,7 +60,7 @@ tools:context="justcode.com.hxlapp.ui.home.MainActivity">
         android:layout_height="wrap_content" />
     <RadioButton
         android:id="@+id/radio2"
-        android:text="记账"
+        android:text="计划"
         android:textSize="12dp"
         android:drawablePadding="2dp"
         android:textColor="@drawable/text_selector"
@@ -94,5 +94,6 @@ tools:context="justcode.com.hxlapp.ui.home.MainActivity">
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
     android:layout_margin="@dimen/fab_margin"
-    app:srcCompat="@android:drawable/ic_dialog_email" />
+    app:backgroundTint="@color/cardview_dark_background"
+    app:srcCompat="@android:drawable/ic_menu_edit" />
 </RelativeLayout>
