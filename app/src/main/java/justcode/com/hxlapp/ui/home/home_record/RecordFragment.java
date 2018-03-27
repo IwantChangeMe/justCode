@@ -45,6 +45,9 @@ public class RecordFragment extends Fragment {
         recordBiz = new RecordBiz(activity);
     }
 
+    public RecordFragment() {
+    }
+
     public void updateRecord(List<RecordEntity> list0) {
         norAdapter.update(list0);
 

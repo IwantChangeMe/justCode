@@ -26,16 +26,24 @@ public class RecordActivity extends BaseUIActivity {
     EditText etContent;
     RecordBiz recordBiz;
 
+    boolean isHasRecord = false;
+    RecordEntity recordEntity;
+
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_record);
         setTitle("记事");
-
+        initView();
         recordBiz = new RecordBiz(this);
         Intent intent = getIntent();
-        RecordEntity recordEntity = intent.getParcelableExtra("RecordEntity");
-        initView();
+        recordEntity = intent.getParcelableExtra("RecordEntity");
+        if (recordEntity != null) {
+            isHasRecord = true;
+            etTitle.setText(recordEntity.getTitle());
+            etContent.setText(recordEntity.getConnent());
+        }
+
 
     }
 
@@ -55,7 +63,12 @@ public class RecordActivity extends BaseUIActivity {
                 getUserInput(new Action1<RecordEntity>() {
                     @Override
                     public void call(RecordEntity recordEntity) {
-                        recordBiz.write2DB(recordEntity);
+                        if (isHasRecord) {
+                            recordBiz.updateRecordEntity(recordEntity);
+                        } else {
+                            recordBiz.write2DB(recordEntity);
+                        }
+
                         submitButton.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -91,7 +104,15 @@ public class RecordActivity extends BaseUIActivity {
         }
         long timelong = System.currentTimeMillis();
         String timeStr = getCurrentTime(timelong);
-        RecordEntity recordEntity = new RecordEntity(null, title, content, timeStr, timelong);
+
+        if (recordEntity == null) {
+            recordEntity = new RecordEntity(null, title, content, timeStr, timelong);
+        } else {
+            recordEntity.setTitle(title);
+            recordEntity.setConnent(content);
+            recordEntity.setDate(timelong);
+            recordEntity.setTimeStr(timeStr);
+        }
         action1.call(recordEntity);
     }
 
