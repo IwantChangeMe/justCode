@@ -12,5 +12,10 @@
     <color name="buttoncolor">#4cd964</color>
     <color name="itembackground">#f7f7f7</color>
 
+    <!--颜色查看-->
+    <color name="test">#FFE74C3C</color>
+    <!--dialog-->
+
+    <!--dialog-->
 
 </resources>

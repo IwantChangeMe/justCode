@@ -52,7 +52,7 @@
                 android:inputType="textMultiLine"
                 android:minLines="20"
                 android:textSize="15sp" />
-            <justcode.com.hxlapp.ui.自定义view.SubmitButton
+            <justcode.com.hxlapp.ui.common_ui.自定义view.SubmitButton
                 android:id="@+id/sbtn_submit"
                 android:layout_marginTop="10dp"
                 android:layout_width="200dp"

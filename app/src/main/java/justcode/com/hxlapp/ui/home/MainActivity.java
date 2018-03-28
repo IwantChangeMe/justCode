@@ -47,6 +47,7 @@ public class MainActivity extends BaseUIActivity implements NavigationView.OnNav
         fab = findViewById(R.id.fab);
 
         title = findViewById(R.id.title);
+        title.setText("记事");
         // 初始化fragmen管理器
         fm = getSupportFragmentManager();
         if (recordFragment == null)

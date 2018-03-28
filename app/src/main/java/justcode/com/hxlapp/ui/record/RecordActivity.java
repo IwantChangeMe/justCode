@@ -17,7 +17,7 @@ import justcode.com.common.okhttp.action.Action1;
 import justcode.com.hxlapp.R;
 import justcode.com.hxlapp.base.BaseUIActivity;
 import justcode.com.hxlapp.bussiness.record.RecordBiz;
-import justcode.com.hxlapp.ui.自定义view.SubmitButton;
+import justcode.com.hxlapp.ui.common_ui.自定义view.SubmitButton;
 
 public class RecordActivity extends BaseUIActivity {
     SubmitButton submitButton;

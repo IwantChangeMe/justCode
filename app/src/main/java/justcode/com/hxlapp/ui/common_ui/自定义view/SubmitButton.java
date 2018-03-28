@@ -1,4 +1,4 @@
-package justcode.com.hxlapp.ui.自定义view;
+package justcode.com.hxlapp.ui.common_ui.自定义view;
 
 
 import android.animation.Animator;

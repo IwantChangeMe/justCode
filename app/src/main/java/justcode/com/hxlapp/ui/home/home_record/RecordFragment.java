@@ -115,6 +115,16 @@ public class RecordFragment extends Fragment {
         super.onResume();
         k = 0;
         updateRecord(refushRecordEntity());
+        if (list.size() == 0) {
+            RecordEntity recordEntity = new RecordEntity();
+            recordEntity.setId((long) -99);
+            recordEntity.setTimeStr("2018年3月28日");
+            recordEntity.setTitle("作者日记");
+            recordEntity.setConnent("非常高兴，您能使用的产品。\n您现在还未添加记录，请点击右下角的“笔”记事");
+            list.add(recordEntity);
+            updateRecord(list);
+        }
+
         Log.d(TAG, "onResume");
     }
 
@@ -136,6 +146,7 @@ public class RecordFragment extends Fragment {
                 k = list.size();
             }
         }
+
         return list;
     }
 
