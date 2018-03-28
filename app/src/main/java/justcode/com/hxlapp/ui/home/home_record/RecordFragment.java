@@ -120,7 +120,7 @@ public class RecordFragment extends Fragment {
             recordEntity.setId((long) -99);
             recordEntity.setTimeStr("2018年3月28日");
             recordEntity.setTitle("作者日记");
-            recordEntity.setConnent("非常高兴，您能使用的产品。\n您现在还未添加记录，请点击右下角的“笔”记事");
+            recordEntity.setConnent("非常高兴，您能使用本产品。\n您现在还未添加记录，请点击右下角的“笔”记事\n(注：仅本条记录不可操作，有新记录后，本条记录自动消失)");
             list.add(recordEntity);
             updateRecord(list);
         }

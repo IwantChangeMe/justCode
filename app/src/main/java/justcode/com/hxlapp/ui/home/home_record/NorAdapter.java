@@ -65,7 +65,8 @@ public class NorAdapter extends RecyclerView.Adapter<NorAdapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 RecordEntity recordEntity = list.get(position);
-                ActivityJumpUtil.jump2record((Activity) context, RecordActivity.class, recordEntity);
+                if (recordEntity.getId() != -99)
+                    ActivityJumpUtil.jump2record((Activity) context, RecordActivity.class, recordEntity);
             }
         });
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
